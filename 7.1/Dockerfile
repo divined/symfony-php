@@ -13,14 +13,9 @@ ENV WODBY_DIR_FILES="/mnt/files" \
 USER root
 
 RUN set -ex && \
-    su-exec www-data composer global require drush/drush && \
-    su-exec www-data composer clear-cache && \
-    su-exec www-data drush @none dl registry_rebuild-7.x && \
-    su-exec www-data git clone ${DRUSH_PATCHFILE_URL} /home/www-data/.drush/drush-patchfile && \
-    su-exec www-data drush cc drush && \
-    curl https://drupalconsole.com/installer -L -o drupal.phar && \
-    mv drupal.phar /usr/local/bin/drupal && \
-    chmod +x /usr/local/bin/drupal && \
+    mkdir -p /usr/local/bin && \
+    curl -LsS https://symfony.com/installer -o /usr/local/bin/symfony && \
+    chmod a+x /usr/local/bin/symfony && \
     mv /usr/local/bin/actions.mk /usr/local/bin/php.mk && \
     # Change overridden target name to avoid warnings.
     sed -i 's/git-checkout:/php-git-checkout:/' /usr/local/bin/php.mk && \
