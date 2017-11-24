@@ -20,4 +20,3 @@ RUN set -ex && \
 USER www-data
 
 COPY templates /etc/gotpl/
-COPY init /docker-entrypoint-init.d/
