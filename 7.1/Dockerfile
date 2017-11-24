@@ -15,15 +15,9 @@ USER root
 RUN set -ex && \
     mkdir -p /usr/local/bin && \
     curl -LsS https://symfony.com/installer -o /usr/local/bin/symfony && \
-    chmod a+x /usr/local/bin/symfony && \
-    mv /usr/local/bin/actions.mk /usr/local/bin/php.mk && \
-    # Change overridden target name to avoid warnings.
-    sed -i 's/git-checkout:/php-git-checkout:/' /usr/local/bin/php.mk && \
-    mkdir -p $WODBY_DIR_FILES $WODBY_DIR_CONF && \
-    chown www-data:www-data $WODBY_DIR_CONF
+    chmod a+x /usr/local/bin/symfony
 
 USER www-data
 
 COPY templates /etc/gotpl/
-COPY actions /usr/local/bin
 COPY init /docker-entrypoint-init.d/
